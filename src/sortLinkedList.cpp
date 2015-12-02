@@ -45,13 +45,30 @@ struct node * sortLinkedList(struct node *head) {
 	struct node *temp = head -> next;
 	struct node *temp1;
 	struct node *temp2;
+	struct node *temp3;
 	head->next = NULL;
 	while (temp != NULL) {
 		temp1 = head;
-		while (temp1 -> num != NULL && temp1->num < temp->num) {
+		while (temp1 -> next != NULL && temp1->num <= temp->num) {
+			temp3 = temp1;
 			temp1 = temp1->next;
 		}
-		
+		if (temp1->num > temp->num) {
+			temp2 = temp;
+			temp = temp->next;
+			temp2->next = temp1;
+			if (temp1 == head) {
+				head = temp2;
+			}
+			else {
+				temp3->next = temp2;
+			}
+		} else {
+			temp1->next = temp;
+			temp = temp->next;
+			temp1 = temp1->next;
+			temp1->next = NULL;
+		}
 	}
 	return head;
 }
